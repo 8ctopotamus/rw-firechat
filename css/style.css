@@ -1,0 +1,29 @@
+#rw-chat-fab {
+  background: red;
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px black;
+  border: 2px solid lightcoral;
+  cursor: pointer;
+}
+
+#rw-chat-fab .dashicons {
+  font-size: 4.5rem;
+  color: white;
+  height: 50px;
+  width: 50px;
+}
+
+#rw-chat-ui {
+  display: none;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
