@@ -63,20 +63,20 @@ function rw_support_chat_footer() {
   echo '<div id="rw-chat-widget">
     <form id="start-chat">
       Enter your name and email to start chatting!
-      <input name="name" type="text" placeholder="Name" />
-      <input name="email" type="email" placeholder="Email" />
-      <button type="submit">Start chat</button>
+      <input name="name" type="text" placeholder="Name" class="form-control" />
+      <input name="email" type="email" placeholder="Email" class="form-control" />
+      <button type="submit" class="btn btn-block">Start chat</button>
     </form>
 
     <div id="rw-chat-ui">
-      <div id="rw-chat-transcript">
-        <div class="chat-bubble">
-          <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="Help" class="chat-bubble-avatar" />
-          <div>
-            <span class="chat-bubble-name">Jade</span>
-            <span class="chat-bubble-text">Hi there! How can I help?</span>
-          </div>
+      <div class="chat-bubble">
+        <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="Help" class="chat-bubble-avatar" />
+        <div>
+          <span class="chat-bubble-name">Jade</span>
+          <span class="chat-bubble-text">Hi there! How can I help?</span>
         </div>
+      </div>
+      <div id="rw-chat-transcript">
       </div>
       <form id="chat-form">
         <input type="text" class="form-control" placeholder="Your message..." />

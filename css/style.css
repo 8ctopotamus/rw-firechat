@@ -23,17 +23,17 @@
 
 #rw-chat-widget {
   display: block;
+  border-radius: 4px;
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 15px;
+  right: 15px;
   background: white;
   max-height: 70vh;
-  max-width: 35vw;
+  max-width: 350px;
   overflow-y: auto;
-}
-
-#rw-chat-widget input {
-  display: block;
+  padding: 5px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,.5);
+  z-index: 100;
 }
 
 #rw-chat-ui {
