@@ -1,4 +1,4 @@
-#rw-chat-fab {
+/* #rw-chat-fab {
   background: red;
   position: fixed;
   bottom: 5%;
@@ -19,11 +19,47 @@
   color: white;
   height: 50px;
   width: 50px;
+} */
+
+#rw-chat-widget {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: white;
+  max-height: 70vh;
+  max-width: 35vw;
+  overflow-y: auto;
+}
+
+#rw-chat-widget input {
+  display: block;
 }
 
 #rw-chat-ui {
   display: none;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+}
+
+.chat-bubble {
+  display: flex;
+  padding: 3px;
+  font-size: 1.4rem;
+}
+
+.chat-bubble.guest {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chat-bubble-name {
+  font-weight: bold;
+  display: block;
+}
+
+.chat-bubble-avatar {
+  border-radius: 50%;
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: 4px;
 }
