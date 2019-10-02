@@ -1,5 +1,5 @@
 (function() {
-  const { firebaseConfig } = wp_data;
+  const { firebaseConfig, chatBubbleHTMLString } = wp_data;
   const app = firebase.initializeApp(firebaseConfig);
   const db = app.firestore();
 
@@ -25,6 +25,7 @@
   function handleChatFormSubmit(e) {
     e.preventDefault();
     const data = {
+      name: guestName,
       text: input.value,
       timestamp: Date.now(),
       isGuest: true
@@ -45,8 +46,8 @@
         transcript.innerHTML = '';
         querySnapshot.forEach(function(doc) {
           const clone = cloneChatBubble();
+          clone.querySelectorAll('.chat-bubble-name')[0].innerText = doc.data().name;
           clone.querySelectorAll('.chat-bubble-text')[0].innerText = doc.data().text;
-          clone.querySelectorAll('.chat-bubble-name')[0].innerText = guestName;
           doc.data().isGuest ? clone.classList.add('guest') : null;
           transcript.appendChild(clone);
         });
@@ -58,6 +59,7 @@
     const data = {
       name: e.target.querySelectorAll('input[type="text"]')[0].value,
       email: e.target.querySelectorAll('input[type="email"]')[0].value,
+      timestamp: Date.now(),
     };
     db.collection('channels')
       .add(data)
@@ -73,18 +75,20 @@
       .catch(err => console.log(err));
   };
 
-  // check to see if channel exists
-  db.collection("channels").doc(channelID).get().then(function(doc) {
-    if (doc.exists) {
-      guestName = doc.data().name
-      guestEmail = doc.data().email
-      startChatForm.style.display = 'none';
-      chatUI.style.display = 'block';
-      listen4Messages();
-    } else {
-      localStorage.clear(lsKey);
-    }
-  });
+  // check to see if channel exists on load
+  if (channelID) {
+    db.collection("channels").doc(channelID).get().then(function(doc) {
+      if (doc.exists) {
+        guestName = doc.data().name
+        guestEmail = doc.data().email
+        startChatForm.style.display = 'none';
+        chatUI.style.display = 'block';
+        listen4Messages();
+      } else {
+        localStorage.clear(lsKey);
+      }
+    });
+  }
 
   startChatForm.addEventListener('submit', startChat);
   form.addEventListener('submit', handleChatFormSubmit);

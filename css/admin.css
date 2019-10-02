@@ -1,0 +1,56 @@
+#chat-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 80vh;
+}
+
+#channels-list {
+  background: lightblue;
+}
+
+#chat-ui {
+  position: relative;
+}
+
+#chat-form {
+  position: absolute;
+  bottom: 0;
+}
+#chat-form,
+#chat-form input {
+  display: block;
+  width: 100%;
+}
+
+.channel-item {
+  padding: 15px;
+  cursor: pointer;
+}
+
+.channel-item:hover {
+  background: rgba(255, 255, 255, .25);
+}
+
+.chat-bubble {
+  display: flex;
+  padding: 3px;
+  font-size: 1.4rem;
+}
+
+.chat-bubble.guest {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chat-bubble-name {
+  font-weight: bold;
+  display: block;
+}
+
+.chat-bubble-avatar {
+  border-radius: 50%;
+  display: block;
+  width: 42px;
+  height: 42px;
+  margin: 4px;
+}

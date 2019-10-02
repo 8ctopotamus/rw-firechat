@@ -36,8 +36,15 @@
   z-index: 100;
 }
 
+#minimize-chat {
+  float: right;
+  background: transparent;
+  outline: none;
+}
+
 #rw-chat-ui {
   display: none;
+  position: relative;
 }
 
 .chat-bubble {
