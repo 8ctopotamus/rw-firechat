@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   height: 80vh;
+  background: white;
 }
 
 #channels-list {
@@ -20,6 +21,10 @@
 #chat-form input {
   display: block;
   width: 100%;
+}
+
+#rw-chat-transcript {
+  padding: 15px;
 }
 
 .channel-item {

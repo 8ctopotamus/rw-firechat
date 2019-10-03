@@ -1,19 +1,19 @@
 <?php
 
-add_action('admin_menu', 'rw_support_chat_admin');
+add_action('admin_menu', 'rw_firechat_admin');
 
-function rw_support_chat_admin() {
+function rw_firechat_admin() {
   add_menu_page( 
-    'Real Wealth<sup>&reg;</sup> Support Chat',
-    'RW Support Chat',
+    'RW FireChat',
+    'RW FireChat',
     'manage_options',
-    'rw-support-chat',
-    'rw_support_chat_admin_html',
+    'rw-firechat',
+    'rw_firechat_admin_html',
     'dashicons-format-chat',
   );
 }
 
-function rw_support_chat_admin_html() {
+function rw_firechat_admin_html() {
   if ( !current_user_can('manage_options') ) {
     return;
   }
@@ -34,6 +34,6 @@ function rw_support_chat_admin_html() {
           </form>
         </div>
       </div>
-    </div> <!-- /.wrap -->
+    </div><!-- /.wrap -->
   <?php 
 }

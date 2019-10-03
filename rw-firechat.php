@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Real Wealth<sup>&reg;</sup> Support Chat
+  Plugin Name: RW FireChat
   Plugin URI:  https://zylocod.es
   Description: A support chat for Real Wealth<sup>&reg;</sup> Marketing.
   Version:     1.0
