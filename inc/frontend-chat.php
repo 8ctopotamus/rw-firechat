@@ -10,6 +10,7 @@
 
   <div id="rw-chat-ui">
     <div id="rw-chat-toolbar">
+      <strong class="name">Jade</strong>
       <button id="mini">&#95;</button>
       <button id="close">&times;</button>
     </div>

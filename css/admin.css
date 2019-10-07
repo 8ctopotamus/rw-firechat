@@ -11,12 +11,15 @@
 
 #chat-ui {
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #chat-form {
   position: absolute;
   bottom: 0;
 }
+
 #chat-form,
 #chat-form input {
   display: block;
@@ -58,4 +61,13 @@
   width: 42px;
   height: 42px;
   margin: 4px;
+}
+
+#firebase-keys-form label,
+#firebase-keys-form input {
+  display: block;
+}
+
+#firebase-keys-form input {
+  margin-bottom: 25px;
 }

@@ -3,14 +3,26 @@
 define('FIREBASE_SDK_URL', 'https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"');
 define('FIRESTORE_SDK_URL', 'https://www.gstatic.com/firebasejs/6.6.1/firebase-firestore.js');
 
+$firebaseConfigConstants = [
+  'FIREBASE_API_KEY',
+  'FIREBASE_AUTH_DOMAIN',
+  'FIREBASE_DATABASE_URL',
+  'FIREBASE_PROJECT_ID',
+  'FIREBASE_STORAGE_BUCKET',
+  'FIREBASE_MESSAGING_SENDER_ID',
+  'FIREBASE_APP_ID',
+];
+
+$options = get_option( 'rw_firechat_settings' ); 
+
 define('FIREBASE_CONFIG', array(
-  'apiKey' => getenv('FIREBASE_API_KEY'),
-  'authDomain' => getenv('FIREBASE_AUTH_DOMAIN'),
-  'databaseURL' => getenv('FIREBASE_DATABASE_URL'),
-  'projectId' => getenv('FIREBASE_PROJECT_ID'),
-  'storageBucket' => getenv('FIREBASE_STORAGE_BUCKET'),
-  'messagingSenderId' => getenv('FIREBASE_MESSAGING_SENDER_ID'),
-  'appId' => getenv('FIREBASE_APP_ID'),
+  'apiKey' => $options['FIREBASE_API_KEY'],
+  'authDomain' => $options['FIREBASE_AUTH_DOMAIN'],
+  'databaseURL' => $options['FIREBASE_DATABASE_URL'],
+  'projectId' => $options['FIREBASE_PROJECT_ID'],
+  'storageBucket' => $options['FIREBASE_STORAGE_BUCKET'],
+  'messagingSenderId' => $options['FIREBASE_MESSAGING_SENDER_ID'],
+  'appId' => $options['FIREBASE_APP_ID'],
 ));
 
 $chatBubbleHTMLString = '<div class="chat-bubble">
@@ -30,6 +42,11 @@ function rw_firechat_admin_assets( $hook ) {
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);  
   wp_register_script('rw_firechat_admin_js', plugin_dir_url( __DIR__ ) . '/js/admin-chat.js', '', '', true);
+
+  if ( $hook === 'rw-firechat_page_rw-firechat-settings' ) {
+    wp_enqueue_style( 'rw_firechat_admin_styles' );
+  }
+
   if ( $hook === 'toplevel_page_rw-firechat' ) {
     wp_enqueue_style( 'rw_firechat_admin_styles' );
     wp_enqueue_script( 'firebase_sdk' );
@@ -53,7 +70,7 @@ function rw_firechat_assets() {
   wp_register_style('rw_firechat_styles', plugin_dir_url( __DIR__ ) . '/css/style.css');
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);
-  wp_register_script('rw_firechat_js', plugin_dir_url( __DIR__ ) . '/js/frontend-chat.js', '', '', true);
+  wp_register_script('rw_firechat_js', plugin_dir_url( __DIR__ ) . '/js/frontend-chat.js', array('jquery'), '', true);
   wp_localize_script( 'rw_firechat_js', 'wp_data', array(
     'firebaseConfig' => FIREBASE_CONFIG,
     'chatBubbleHTMLString' => $chatBubbleHTMLString,

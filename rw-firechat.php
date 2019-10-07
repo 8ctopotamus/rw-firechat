@@ -12,11 +12,6 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require __DIR__ . '/vendor/autoload.php';
-
-$dotenv = Dotenv\Dotenv::create(__DIR__);
-$dotenv->load();
-
 include 'inc/init.php';
 include 'inc/functions.php';
 include 'inc/admin.php';

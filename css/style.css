@@ -35,9 +35,14 @@
 }
 
 #rw-chat-toolbar {
+  display: flex;
   padding: 5px;
   background-color: #ddd;
   text-align: right;
+}
+
+#rw-chat-toolbar .name {
+  margin-right: auto;
 }
 
 #rw-chat-toolbar button {

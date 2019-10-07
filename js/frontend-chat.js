@@ -1,4 +1,4 @@
-(function() {
+(function($) {
   const { firebaseConfig, chatBubbleHTMLString } = wp_data;
   const app = firebase.initializeApp(firebaseConfig);
   const db = app.firestore();
@@ -9,6 +9,7 @@
   const transcript = chatUI.querySelectorAll('#rw-chat-transcript')[0];
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];
+  const mini = chatWidget.querySelectorAll('#mini')[0];
   
   const lsKey = 'rwChatChannelID';
 
@@ -91,6 +92,11 @@
   }
 
   startChatForm.addEventListener('submit', startChat);
-  form.addEventListener('submit', handleChatFormSubmit);
 
-})();
+  form.addEventListener('submit', handleChatFormSubmit);
+  
+  mini.addEventListener('click', function(e) {
+    $(transcript).slideToggle();
+  });
+
+})(jQuery);
