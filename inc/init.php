@@ -39,6 +39,7 @@ $chatBubbleHTMLString = '<div class="chat-bubble">
 function rw_firechat_admin_assets( $hook ) {
   global $chatBubbleHTMLString;
   wp_register_style('rw_firechat_admin_styles', plugin_dir_url( __DIR__ ) . '/css/admin.css');
+
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);  
   wp_register_script('rw_firechat_admin_js', plugin_dir_url( __DIR__ ) . '/js/admin-chat.js', '', '', true);
@@ -67,7 +68,9 @@ add_action( 'admin_enqueue_scripts', 'rw_firechat_admin_assets' );
  */
 function rw_firechat_assets() {
   global $chatBubbleHTMLString;
+  
   wp_register_style('rw_firechat_styles', plugin_dir_url( __DIR__ ) . '/css/style.css');
+
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);
   wp_register_script('rw_firechat_js', plugin_dir_url( __DIR__ ) . '/js/frontend-chat.js', array('jquery'), '', true);
@@ -75,8 +78,10 @@ function rw_firechat_assets() {
     'firebaseConfig' => FIREBASE_CONFIG,
     'chatBubbleHTMLString' => $chatBubbleHTMLString,
   ) );
+  
   wp_enqueue_style( 'dashicons' );
   wp_enqueue_style( 'rw_firechat_styles' );
+
   wp_enqueue_script('firebase_sdk');
   wp_enqueue_script('firebase_firestore');
   wp_enqueue_script('rw_firechat_js');
@@ -89,6 +94,6 @@ add_action('wp_enqueue_scripts', 'rw_firechat_assets');
  */
 function rw_firechat_footer() {
   global $chatBubbleHTMLString;
-  include 'frontend-chat.php';
+  include plugin_dir_path( __DIR__ ) . '/templates/frontend-chat.php';
 }
 add_action('wp_footer', 'rw_firechat_footer');

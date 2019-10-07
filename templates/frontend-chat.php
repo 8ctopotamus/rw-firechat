@@ -12,12 +12,14 @@
     <div id="rw-chat-toolbar">
       <strong class="name">Jade</strong>
       <button id="mini">&#95;</button>
-      <button id="close">&times;</button>
+      <!-- <button id="close">&times;</button> -->
     </div>
-    <?php echo $chatBubbleHTMLString; ?>
-    <div id="rw-chat-transcript"></div>
-    <form id="chat-form">
-      <input type="text" class="form-control" placeholder="Your message..." />
-    </form>
+    <section>
+      <?php echo $chatBubbleHTMLString; ?>
+      <div id="rw-chat-transcript"></div>
+      <form id="chat-form">
+        <input type="text" class="form-control" placeholder="Your message..." />
+      </form>
+    </section>
   </div>
 </div><!-- #rw-chat-widget -->

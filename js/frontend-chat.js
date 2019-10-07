@@ -95,8 +95,8 @@
 
   form.addEventListener('submit', handleChatFormSubmit);
   
-  mini.addEventListener('click', function(e) {
-    $(transcript).slideToggle();
+  mini.addEventListener('click', e => {
+    $(chatUI).find('section').slideToggle();
   });
 
 })(jQuery);

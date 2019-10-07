@@ -79,5 +79,5 @@ function rw_firechat_admin_html() {
     echo '<p class="notice notice-error">' . $_GET['error'] . '</p>';
   }
   
-  include 'admin-chat.php';
+  include plugin_dir_path( __DIR__ ) . '/templates/admin-chat.php';
 }
