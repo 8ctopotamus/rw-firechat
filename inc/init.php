@@ -33,7 +33,7 @@ function rw_firechat_admin_assets( $hook ) {
 
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);  
-  wp_register_script('rw_firechat_admin_js', plugin_dir_url( __DIR__ ) . '/js/admin-chat.js', '', '', true);
+  wp_register_script('rw_firechat_admin_js', plugin_dir_url( __DIR__ ) . '/js/admin-chat.js', array('jquery'), '', true);
 
   if ( $hook === 'rw-firechat_page_rw-firechat-settings' ) {
     wp_enqueue_style( 'rw_firechat_admin_styles' );
@@ -61,6 +61,7 @@ function rw_firechat_assets() {
 
   wp_register_script('firebase_sdk', FIREBASE_SDK_URL, '', '', true);
   wp_register_script('firebase_firestore', FIRESTORE_SDK_URL, '', '', true);
+  wp_register_script('vanilla_emoji_picker', plugin_dir_url( __DIR__ ) . '/node_modules/vanilla-emoji-picker/dist/emojiPicker.min.js', array('jquery'), '', true);
   wp_register_script('rw_firechat_js', plugin_dir_url( __DIR__ ) . '/js/frontend-chat.js', array('jquery'), '', true);
   wp_localize_script( 'rw_firechat_js', 'wp_data', array(
     'FIREBASE_CONFIG' => FIREBASE_CONFIG,
@@ -71,6 +72,7 @@ function rw_firechat_assets() {
 
   wp_enqueue_script('firebase_sdk');
   wp_enqueue_script('firebase_firestore');
+  wp_enqueue_script('vanilla_emoji_picker');
   wp_enqueue_script('rw_firechat_js');
 }
 add_action('wp_enqueue_scripts', 'rw_firechat_assets');

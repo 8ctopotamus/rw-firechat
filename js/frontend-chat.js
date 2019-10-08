@@ -2,7 +2,6 @@
   const { FIREBASE_CONFIG } = wp_data;
   const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
-  const parser = new DOMParser();
 
   const chatWidget = document.getElementById('rw-chat-widget');
   const startChatForm = document.getElementById('start-chat');
@@ -11,12 +10,8 @@
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];
   const mini = chatWidget.querySelectorAll('#mini')[0];
-
-  const chatBubbleHTMLString = `<div class="chat-bubble">
-    <p class="chat-bubble-text">Hi there! How can I help?</p>
-  </div>`;
   
-  const admin = {username: 'Jade'};
+  const admin = { username: 'Jade' };
 
   const lsKey = 'rwChatChannelID';
 
@@ -24,7 +19,8 @@
   let channelID = lsKey in localStorage ? localStorage.getItem(lsKey) : null;
 
   function cloneChatBubble() {
-    return parser.parseFromString(chatBubbleHTMLString, 'text/html').body.firstChild;
+    var clone = document.getElementById("chat-bubble-template").content.querySelector('.chat-bubble').cloneNode(true);
+    return clone;
   };
 
   function handleChatFormSubmit(e) {

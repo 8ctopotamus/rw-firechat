@@ -1,23 +1,13 @@
-(function() {
+(function($) {
   const { admin_display_name, FIREBASE_CONFIG } = wp_data;
   const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
-  const parser = new DOMParser();
   const channelsList = document.getElementById('channels-list');
-
+  
   const chatUI = document.getElementById('chat-ui');
   const transcript = chatUI.querySelectorAll('#rw-chat-transcript')[0];
   const form = chatUI.querySelectorAll('#chat-form')[0];
-  const input = form.querySelectorAll('input')[0];  
-  const channelItemString = '<div class="channel-item"><h4 class="channel-label">Guest Name</h4></div>';
-
-  const chatBubbleHTMLString = `<div class="chat-bubble">
-    <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
-    <div>
-      <span class="chat-bubble-name">Jade</span>
-      <span class="chat-bubble-text">Hi there! How can I help?</span>
-    </div>
-  </div>`;
+  const input = form.querySelectorAll('input')[0];
 
   let currentChannelId;
 
@@ -29,8 +19,9 @@
       .onSnapshot(function(querySnapshot) {
         transcript.innerHTML = '';
         querySnapshot.forEach(function(doc) {
-          const chatBubble = parser.parseFromString(chatBubbleHTMLString, 'text/html').body.firstChild;
+          const chatBubble = cloneChatBubble();
           chatBubble.querySelectorAll('.chat-bubble-name')[0].innerText = doc.data().name;
+          chatBubble.querySelectorAll('.chat-bubble-time')[0].innerText = timeFormatter(doc.data().timestamp);
           chatBubble.querySelectorAll('.chat-bubble-text')[0].innerText = doc.data().text;
           doc.data().isGuest ? chatBubble.classList.add('guest') : null;
           transcript.appendChild(chatBubble);
@@ -57,8 +48,50 @@
     let id = e.target.id;
     if (!id) { id = e.target.parentNode.id; }
     currentChannelId = id;
+
+    Array.prototype.slice.call(channelsList.children).forEach(el => {
+      el.classList.remove('active');
+      if (el.id === currentChannelId) {
+        el.classList.add('active');
+      }
+    });
+
     listen4Messages(currentChannelId);
   }
+
+  function deleteChannel(e) {
+    e.preventDefault();
+    let confirmation = confirm("Are you sure?");
+    if (confirmation) {
+      const id = $(this).parent().attr('id');
+      db.collection("channels").doc(id)
+        .delete()
+        .catch(err => console.log(err));
+    }
+  }
+
+  function timeFormatter(dateTime){
+    var date = new Date(dateTime);
+    if (date.getHours()>=12){
+        var hour = parseInt(date.getHours()) - 12;
+        var amPm = "PM";
+    } else {
+        var hour = date.getHours(); 
+        var amPm = "AM";
+    }
+    var time = hour + ":" + date.getMinutes() + " " + amPm;
+    return time;
+  }
+
+  function cloneChatBubble() {
+    var clone = document.getElementById("chat-bubble-template").content.querySelector('.chat-bubble').cloneNode(true);
+    return clone;
+  };
+
+  function cloneChannelItem() {
+    var clone = document.getElementById("channel-item-template").content.querySelector('.channel-item').cloneNode(true);
+    return clone;
+  };
 
   db.collection("channels")
     .orderBy('timestamp', 'asc')
@@ -68,7 +101,7 @@
         if (!currentChannelId) {
           currentChannelId = doc.id;
         }
-        const newItem = parser.parseFromString(channelItemString, 'text/html').body.firstChild;
+        const newItem = cloneChannelItem();
         newItem.id = doc.id;
         if (newItem.id === currentChannelId) {
           newItem.classList.add('active');
@@ -84,5 +117,20 @@
     });
   
   form.addEventListener('submit', handleChatFormSubmit);
+  $('body').on('click', '.delete', deleteChannel)
 
-})();
+
+
+  // dropdown
+  $("body").on('click', "nav ul li a:not(:only-child)", function(e) {
+    $(this).siblings(".dropdown").toggle();
+  
+    $(".dropdown").not($(this).siblings()).hide();
+    e.stopPropagation();
+  });
+  
+  $("html").click(function() {
+    $(".dropdown").hide();
+  });
+
+})(jQuery);

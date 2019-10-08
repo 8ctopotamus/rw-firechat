@@ -1,14 +1,22 @@
+<template id="chat-bubble-template">
+  <div class="chat-bubble">
+    <p class="chat-bubble-text"></p>
+  </div>
+</template>
+
 <div id="rw-chat-widget" class="closed">
   <div id="rw-chat-toolbar">
-    <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
-    
+    <div>
+      <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
+    </div>
+
     <div class="status">
       <strong class="name">Jade</strong>
       <span class="status">Online</span>
     </div>
     
     <button id="mini">&#95;</button>
-    <!-- <button id="close">&times;</button> -->
+    <button id="close">&times;</button>
   </div>
 
   <section style="display: none;">
@@ -24,7 +32,12 @@
         <span>How can we help you?</span>
       </div>
       <form id="chat-form">
-        <input type="text" class="form-control" placeholder="Your message..." />
+        <div class="input-group">
+          <input type="text" placeholder="Your message..." class="form-control" data-emoji-picker="true" />
+          <span class="input-group-btn">
+            <button class="btn btn-success" type="submit">Send</button>
+          </span>
+        </div>
       </form>
     </div>
   </section>

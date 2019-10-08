@@ -92,6 +92,11 @@
 }
 
 #chat-form input {
+  border-radius: 0 0 0px 4px;
+}
+
+#chat-form button[type="submit"] {
+  height: 42px;
   border-radius: 0 0 4px 4px;
 }
 
