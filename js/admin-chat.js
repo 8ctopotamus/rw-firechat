@@ -1,6 +1,6 @@
 (function() {
-  const { admin_display_name, firebaseConfig, chatBubbleHTMLString } = wp_data;
-  const app = firebase.initializeApp(firebaseConfig);
+  const { admin_display_name, FIREBASE_CONFIG } = wp_data;
+  const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
   const parser = new DOMParser();
   const channelsList = document.getElementById('channels-list');
@@ -10,6 +10,14 @@
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];  
   const channelItemString = '<div class="channel-item"><h4 class="channel-label">Guest Name</h4></div>';
+
+  const chatBubbleHTMLString = `<div class="chat-bubble">
+    <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
+    <div>
+      <span class="chat-bubble-name">Jade</span>
+      <span class="chat-bubble-text">Hi there! How can I help?</span>
+    </div>
+  </div>`;
 
   let currentChannelId;
 
@@ -22,7 +30,6 @@
         transcript.innerHTML = '';
         querySnapshot.forEach(function(doc) {
           const chatBubble = parser.parseFromString(chatBubbleHTMLString, 'text/html').body.firstChild;
-          console.log(chatBubble)
           chatBubble.querySelectorAll('.chat-bubble-name')[0].innerText = doc.data().name;
           chatBubble.querySelectorAll('.chat-bubble-text')[0].innerText = doc.data().text;
           doc.data().isGuest ? chatBubble.classList.add('guest') : null;

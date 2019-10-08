@@ -1,7 +1,8 @@
 (function($) {
-  const { firebaseConfig, chatBubbleHTMLString } = wp_data;
-  const app = firebase.initializeApp(firebaseConfig);
+  const { FIREBASE_CONFIG } = wp_data;
+  const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
+  const parser = new DOMParser();
 
   const chatWidget = document.getElementById('rw-chat-widget');
   const startChatForm = document.getElementById('start-chat');
@@ -10,17 +11,20 @@
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];
   const mini = chatWidget.querySelectorAll('#mini')[0];
+
+  const chatBubbleHTMLString = `<div class="chat-bubble">
+    <p class="chat-bubble-text">Hi there! How can I help?</p>
+  </div>`;
   
+  const admin = {username: 'Jade'};
+
   const lsKey = 'rwChatChannelID';
 
   let guestName;
   let channelID = lsKey in localStorage ? localStorage.getItem(lsKey) : null;
 
   function cloneChatBubble() {
-    const clone = chatWidget.querySelectorAll('.chat-bubble')[0].cloneNode(true);
-    clone.querySelectorAll('.chat-bubble-avatar')[0].src = 'https://realwealthmarketing.com/wp-content/uploads/2017/11/sample-headshot-placeholder.jpg';
-    clone.querySelectorAll('.chat-bubble-name')[0].innerText = 'Guest';
-    return clone;
+    return parser.parseFromString(chatBubbleHTMLString, 'text/html').body.firstChild;
   };
 
   function handleChatFormSubmit(e) {
@@ -47,7 +51,6 @@
         transcript.innerHTML = '';
         querySnapshot.forEach(function(doc) {
           const clone = cloneChatBubble();
-          clone.querySelectorAll('.chat-bubble-name')[0].innerText = doc.data().name;
           clone.querySelectorAll('.chat-bubble-text')[0].innerText = doc.data().text;
           doc.data().isGuest ? clone.classList.add('guest') : null;
           transcript.appendChild(clone);
@@ -71,6 +74,19 @@
         localStorage.setItem(lsKey, docRef.id);
         startChatForm.style.display = 'none';
         chatUI.style.display = 'block';
+        // add a first message
+        const openingMessage = {
+          name: admin.username,
+          text: `Hi ${guestName}, how can I help you?`,
+          timestamp: Date.now(),
+          isGuest: false
+        };
+        db.collection("channels")
+          .doc(channelID)
+          .collection('messages')
+          .add(openingMessage);
+        input.value = '';
+        // subscribe
         listen4Messages();
       })
       .catch(err => console.log(err));
@@ -96,7 +112,7 @@
   form.addEventListener('submit', handleChatFormSubmit);
   
   mini.addEventListener('click', e => {
-    $(chatUI).find('section').slideToggle();
+    $(chatWidget).toggleClass('closed').find('section').slideToggle();
   });
 
 })(jQuery);

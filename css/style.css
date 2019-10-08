@@ -1,26 +1,3 @@
-/* #rw-chat-fab {
-  background: red;
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
-  height: 60px;
-  width: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  box-shadow: 0px 2px 5px black;
-  border: 2px solid lightcoral;
-  cursor: pointer;
-}
-
-#rw-chat-fab .dashicons {
-  font-size: 4.5rem;
-  color: white;
-  height: 50px;
-  width: 50px;
-} */
-
 #rw-chat-widget {
   display: block;
   border-radius: 4px;
@@ -28,7 +5,8 @@
   bottom: 15px;
   right: 15px;
   background: white;
-  max-width: 350px;
+  max-width: 320px;
+  width: 100%;
   overflow-y: hidden;
   box-shadow: 0px 0px 8px rgba(0,0,0,.5);
   z-index: 100;
@@ -38,18 +16,32 @@
   display: flex;
   padding: 5px;
   background-color: #ddd;
-  text-align: right;
 }
 
-#rw-chat-toolbar .name {
+#rw-chat-toolbar .bot {
   margin-right: auto;
 }
 
-#rw-chat-toolbar button {
-  height: 10px;
+#rw-chat-toolbar .name,
+#rw-chat-toolbar .status {
+  display: block;
+}
+
+#rw-chat-toolbar .name {
+  margin-bottom: 0;
+}
+
+#rw-chat-toolbar .status {
+  font-size: 1rem;
+}
+
+#rw-chat-toolbar #mini {
   background: transparent;
   outline: none;
   border: none;
+  display: block;
+  width: 100%;
+  text-align: right;
 }
 
 #minimize-chat {
@@ -66,18 +58,24 @@
 #rw-chat-transcript {
   max-height: 50vh;
   overflow-y: scroll;
-  padding: 0 5px 35px;
+  padding: 10px 15px 35px;
 }
 
-.chat-bubble {
-  display: flex;
-  padding: 3px;
+.chat-bubble-text {
+  display: inline-block;
+  background: #d8c1ee;
+  border-radius: 0 4px 4px 4px;
   font-size: 1.4rem;
+  padding: 10px 12px;
 }
 
 .chat-bubble.guest {
-  flex-direction: row-reverse;
   text-align: right;
+}
+
+.chat-bubble.guest .chat-bubble-text {
+  background: #eee;
+  border-radius: 4px 0px 4px 4px;
 }
 
 .chat-bubble-name {
@@ -88,10 +86,15 @@
 .chat-bubble-avatar {
   border-radius: 50%;
   display: block;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   margin: 4px;
 }
+
+#chat-form input {
+  border-radius: 0 0 4px 4px;
+}
+
 /* 
 @media (max-width: 767px) {
   #rw-chat-widget {
