@@ -18,6 +18,10 @@
   let guestName;
   let channelID = lsKey in localStorage ? localStorage.getItem(lsKey) : null;
 
+  function scrollToBottom() {
+    transcript.scrollTop = transcript.scrollHeight;
+  }
+
   function cloneChatBubble() {
     var clone = document.getElementById("chat-bubble-template").content.querySelector('.chat-bubble').cloneNode(true);
     return clone;
@@ -51,6 +55,7 @@
           doc.data().isGuest ? clone.classList.add('guest') : null;
           transcript.appendChild(clone);
         });
+        scrollToBottom();
       });
   };
 

@@ -6,7 +6,6 @@
         <li>
           <a href="#!"><span class="dashicons dashicons-menu"></span></a>
           <ul class="dropdown">
-            <li><a href="#!">Infusionsoft</a></li>
             <li><button class="delete">Delete</button></li>
           </ul>
         </li>

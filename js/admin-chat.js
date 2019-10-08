@@ -1,5 +1,5 @@
 (function($) {
-  const { admin_display_name, FIREBASE_CONFIG } = wp_data;
+  const { FIREBASE_CONFIG } = wp_data;
   const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
   const channelsList = document.getElementById('channels-list');
@@ -26,6 +26,7 @@
           doc.data().isGuest ? chatBubble.classList.add('guest') : null;
           transcript.appendChild(chatBubble);
         });
+        scrollToBottom();
       });
   }
 
@@ -93,6 +94,10 @@
     return clone;
   };
 
+  function scrollToBottom() {
+    transcript.scrollTop = transcript.scrollHeight;
+  }
+
   db.collection("channels")
     .orderBy('timestamp', 'asc')
     .onSnapshot(function(querySnapshot) {
@@ -118,8 +123,6 @@
   
   form.addEventListener('submit', handleChatFormSubmit);
   $('body').on('click', '.delete', deleteChannel)
-
-
 
   // dropdown
   $("body").on('click', "nav ul li a:not(:only-child)", function(e) {

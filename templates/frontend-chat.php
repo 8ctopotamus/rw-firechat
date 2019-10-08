@@ -16,7 +16,6 @@
     </div>
     
     <button id="mini">&#95;</button>
-    <button id="close">&times;</button>
   </div>
 
   <section style="display: none;">
@@ -27,7 +26,6 @@
     </form>
 
     <div id="rw-chat-ui">
-      <?php echo $chatBubbleHTMLString; ?>
       <div id="rw-chat-transcript">
         <span>How can we help you?</span>
       </div>
