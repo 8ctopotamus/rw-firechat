@@ -29,18 +29,20 @@
 
   function handleChatFormSubmit(e) {
     e.preventDefault();
-    const data = {
-      name: guestName,
-      text: input.value,
-      timestamp: Date.now(),
-      isGuest: true
-    };
-    db.collection("channels")
-      .doc(channelID)
-      .collection('messages')
-      .add(data);
-    input.value = '';
-  };
+    if (input.value !== '') {
+      const data = {
+        name: guestName,
+        text: input.value,
+        timestamp: Date.now(),
+        isGuest: true
+      };
+      db.collection("channels")
+        .doc(channelID)
+        .collection('messages')
+        .add(data);
+      input.value = '';
+    }
+  }
 
   function listen4Messages() {
     db.collection("channels")

@@ -45,12 +45,6 @@
   text-align: right;
 }
 
-#minimize-chat {
-  float: right;
-  background: transparent;
-  outline: none;
-}
-
 #rw-chat-ui {
   display: none;
   position: relative;

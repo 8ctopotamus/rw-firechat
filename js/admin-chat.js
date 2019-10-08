@@ -4,6 +4,7 @@
   const db = app.firestore();
   const channelsList = document.getElementById('channels-list');
   
+  const $body = $('body');
   const chatUI = document.getElementById('chat-ui');
   const transcript = chatUI.querySelectorAll('#rw-chat-transcript')[0];
   const form = chatUI.querySelectorAll('#chat-form')[0];
@@ -32,17 +33,19 @@
 
   function handleChatFormSubmit(e) {
     e.preventDefault();
-    const data = {
-      name: 'Jade',
-      text: input.value,
-      timestamp: Date.now(),
-      isGuest: false
-    };
-    db.collection("channels")
-      .doc(currentChannelId)
-      .collection('messages')
-      .add(data);
-    input.value = '';
+    if (input.value !== '') {
+      const data = {
+        name: 'Jade',
+        text: input.value,
+        timestamp: Date.now(),
+        isGuest: false
+      };
+      db.collection("channels")
+        .doc(currentChannelId)
+        .collection('messages')
+        .add(data);
+      input.value = '';
+    }
   };
 
   function handleChannelItemClick(e) {
@@ -61,12 +64,13 @@
   }
 
   function deleteChannel(e) {
+    console.log(e.target)
     e.preventDefault();
     let confirmation = confirm("Are you sure?");
     if (confirmation) {
       const id = $(this).parent().attr('id');
       db.collection("channels").doc(id)
-        .delete()
+        .delete(() => location.reload())
         .catch(err => console.log(err));
     }
   }
@@ -120,20 +124,24 @@
         listen4Messages(currentChannelId);
       }
     });
-  
-  form.addEventListener('submit', handleChatFormSubmit);
-  $('body').on('click', '.delete', deleteChannel)
 
   // dropdown
-  $("body").on('click', "nav ul li a:not(:only-child)", function(e) {
-    $(this).siblings(".dropdown").toggle();
+  // $body.on('click', "a.dropdown-trigger", function(e) {
+  //   e.preventDefault();
+  //   console.log(this)
+  //   // $(this).siblings(".dropdown").toggle();
+    
+  //   // $(".dropdown").not($(this).siblings()).hide();
+  //   e.stopPropagation();
+  // });
   
-    $(".dropdown").not($(this).siblings()).hide();
-    e.stopPropagation();
-  });
+  // $("html").click(function() {
+  //   $(".dropdown").hide();
+  // });
   
-  $("html").click(function() {
-    $(".dropdown").hide();
-  });
+  // $body.on('click', '.delete', deleteChannel)
+
+  form.addEventListener('submit', handleChatFormSubmit);
+
 
 })(jQuery);

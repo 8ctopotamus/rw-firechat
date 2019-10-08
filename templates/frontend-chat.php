@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<div id="rw-chat-widget" class="closed">
+<div id="rw-chat-widget">
   <div id="rw-chat-toolbar">
     <div>
       <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
@@ -18,7 +18,7 @@
     <button id="mini">&#95;</button>
   </div>
 
-  <section style="display: none;">
+  <section>
     <form id="start-chat">
       <input name="name" type="text" placeholder="Name" class="form-control" />
       <input name="email" type="email" placeholder="Email" class="form-control" />
