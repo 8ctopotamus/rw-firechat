@@ -7,7 +7,7 @@
 <div id="rw-chat-widget">
   <div id="rw-chat-toolbar">
     <div>
-      <img src="https://realwealthmarketing.com/wp-content/uploads/2017/05/jade-paczelt.jpg" alt="avatar" class="chat-bubble-avatar" />
+      <img src="<?php echo plugin_dir_url( __DIR__ ); ?>/img/jade.jpg"" alt="avatar" class="chat-bubble-avatar" />
     </div>
 
     <div class="status">

@@ -10,8 +10,6 @@
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];
   const mini = chatWidget.querySelectorAll('#mini')[0];
-  
-  const admin = { username: 'Jade' };
 
   const lsKey = 'rwChatChannelID';
 
@@ -79,7 +77,7 @@
         chatUI.style.display = 'block';
         // add a first message
         const openingMessage = {
-          name: admin.username,
+          name: 'Jade',
           text: `Hi ${guestName}, how can I help you?`,
           timestamp: Date.now(),
           isGuest: false

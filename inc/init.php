@@ -45,7 +45,7 @@ function rw_firechat_admin_assets( $hook ) {
     wp_enqueue_script( 'firebase_firestore' );
     wp_localize_script( 'rw_firechat_admin_js', 'wp_data', array(
       'FIREBASE_CONFIG' => FIREBASE_CONFIG,
-      'admin_display_name' => wp_get_current_user()->display_name,
+      'admin' => wp_get_current_user()->data,
     ) );
     wp_enqueue_script( 'rw_firechat_admin_js' );
   }

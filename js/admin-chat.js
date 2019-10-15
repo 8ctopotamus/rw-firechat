@@ -1,16 +1,17 @@
 (function($) {
-  const { FIREBASE_CONFIG } = wp_data;
+  const { FIREBASE_CONFIG, admin } = wp_data;
   const app = firebase.initializeApp(FIREBASE_CONFIG);
   const db = app.firestore();
   const channelsList = document.getElementById('channels-list');
   
-  const $body = $('body');
   const chatUI = document.getElementById('chat-ui');
   const transcript = chatUI.querySelectorAll('#rw-chat-transcript')[0];
   const form = chatUI.querySelectorAll('#chat-form')[0];
   const input = form.querySelectorAll('input')[0];
 
   let currentChannelId;
+
+  console.log(admin)
 
   function listen4Messages(channelId) {
     db.collection("channels")
@@ -35,7 +36,7 @@
     e.preventDefault();
     if (input.value !== '') {
       const data = {
-        name: 'Jade',
+        name: admin.display_name,
         text: input.value,
         timestamp: Date.now(),
         isGuest: false
@@ -124,22 +125,6 @@
         listen4Messages(currentChannelId);
       }
     });
-
-  // dropdown
-  // $body.on('click', "a.dropdown-trigger", function(e) {
-  //   e.preventDefault();
-  //   console.log(this)
-  //   // $(this).siblings(".dropdown").toggle();
-    
-  //   // $(".dropdown").not($(this).siblings()).hide();
-  //   e.stopPropagation();
-  // });
-  
-  // $("html").click(function() {
-  //   $(".dropdown").hide();
-  // });
-  
-  // $body.on('click', '.delete', deleteChannel)
 
   form.addEventListener('submit', handleChatFormSubmit);
 
